@@ -50,7 +50,27 @@ function CompanyRedirectPage() {
     >
       <h1>جاري فتح تطبيق Savi Vouchers...</h1>
       <p>إذا لم يتم فتح التطبيق خلال ثوانٍ، سيتم تحويلك تلقائيًا إلى المتجر لتنزيله.</p>
-      <p>أو يمكنك الاختيار يدويًا من الأزرار بالأسفل:</p>
+      
+      {/* Debug info */}
+      <div style={{ 
+        background: '#f0f0f0', 
+        padding: '12px', 
+        marginTop: '20px',
+        borderRadius: '8px',
+        fontSize: '12px',
+        fontFamily: 'monospace',
+        textAlign: 'left'
+      }}>
+        <div><strong>🔗 Deep Link:</strong></div>
+        <div style={{ wordBreak: 'break-all', marginTop: '8px' }}>
+          {`voucherapp://company/${companyId}`}
+        </div>
+        <div style={{ marginTop: '12px' }}>
+          <strong>📋 Company ID:</strong> {companyId || 'Not found'}
+        </div>
+      </div>
+
+      <p style={{ marginTop: '20px' }}>أو يمكنك الاختيار يدويًا من الأزرار بالأسفل:</p>
 
       <div
         style={{
