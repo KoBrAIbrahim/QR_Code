@@ -1,31 +1,34 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const IOS_APP_STORE_URL =
-  "https://apps.apple.com/app/id6755399456";
-
-const ANDROID_PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.savi.vouchers";
-
-// إعدادات الـ Deep Link
-const DEEP_LINK_SCHEME = "voucherapp";
-const DEEP_LINK_HOST = "qr-code-seven-rose.vercel.app"; // 🔥 CHANGED
-
+const IOS_APP_STORE_URL = "https://apps.apple.com/app/id6755399456";
+const ANDROID_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.savi.vouchers";
 
 function CompanyRedirectPage() {
   const { companyId } = useParams();
 
   useEffect(() => {
+    console.log('🔗 CompanyRedirectPage - Company ID:', companyId);
+    
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isAndroid = /android/i.test(ua);
     const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
 
-    // First try app deep link
-    const appDeepLink = `${DEEP_LINK_SCHEME}://company/${encodeURIComponent(companyId || '')}`;
-    window.location.href = appDeepLink;
+    console.log('📱 Device:', isAndroid ? 'Android' : isIOS ? 'iOS' : 'Other');
 
-    // After 10 seconds, redirect to store if app not installed
+    // Build deep link with proper format
+    const deepLink = `voucherapp://company/${encodeURIComponent(companyId || '')}`;
+    console.log('🚀 Opening deep link:', deepLink);
+
+    // IMPORTANT: Try to open the app immediately
+    // The browser will either open the app or ignore this
+    setTimeout(() => {
+      window.location.href = deepLink;
+    }, 100); // Small delay to ensure page renders
+
+    // Fallback to store after 3 seconds if app doesn't open
     const timeout = setTimeout(() => {
+      console.log('⚠️ App did not open, redirecting to store...');
       if (isAndroid) {
         window.location.href = ANDROID_PLAY_STORE_URL;
       } else if (isIOS) {
@@ -33,7 +36,7 @@ function CompanyRedirectPage() {
       } else {
         window.location.href = "https://savi.vouchers";
       }
-    }, 10000);
+    }, 3000);
 
     return () => clearTimeout(timeout);
   }, [companyId]);
@@ -46,75 +49,133 @@ function CompanyRedirectPage() {
         marginTop: "4rem",
         fontFamily: "system-ui",
         padding: "0 16px",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       }}
     >
-      <h1>جاري فتح تطبيق Savi Vouchers...</h1>
-      <p>إذا لم يتم فتح التطبيق خلال ثوانٍ، سيتم تحويلك تلقائيًا إلى المتجر لتنزيله.</p>
-      
-      {/* Debug info */}
-      <div style={{ 
-        background: '#f0f0f0', 
-        padding: '12px', 
-        marginTop: '20px',
-        borderRadius: '8px',
-        fontSize: '12px',
-        fontFamily: 'monospace',
-        textAlign: 'left'
-      }}>
-        <div><strong>🔗 Deep Link:</strong></div>
-        <div style={{ wordBreak: 'break-all', marginTop: '8px' }}>
-          {`voucherapp://company/${companyId}`}
-        </div>
-        <div style={{ marginTop: '12px' }}>
-          <strong>📋 Company ID:</strong> {companyId || 'Not found'}
-        </div>
-      </div>
-
-      <p style={{ marginTop: '20px' }}>أو يمكنك الاختيار يدويًا من الأزرار بالأسفل:</p>
-
       <div
         style={{
-          marginTop: "1.5rem",
-          display: "flex",
-          gap: "1rem",
-          justifyContent: "center",
-          flexWrap: "wrap",
+          background: "white",
+          borderRadius: "20px",
+          padding: "2rem",
+          maxWidth: "500px",
+          margin: "0 auto",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
         }}
       >
-        <a
-          href={`${DEEP_LINK_SCHEME}://company/${encodeURIComponent(companyId || '')}`}
+        <h1 style={{ color: "#667eea", marginBottom: "1rem" }}>
+          🎫 Savi Vouchers
+        </h1>
+        
+        <div
           style={{
-            padding: "8px 16px",
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            textDecoration: "none",
+            border: "4px solid #f3f3f3",
+            borderTop: "4px solid #667eea",
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            margin: "20px auto",
+            animation: "spin 1s linear infinite",
+          }}
+        />
+        
+        <p style={{ fontSize: "18px", fontWeight: "bold", margin: "1rem 0" }}>
+          جاري فتح التطبيق...
+        </p>
+
+        {/* Debug info */}
+        <div
+          style={{
+            background: "#f0f0f0",
+            padding: "12px",
+            marginTop: "20px",
+            borderRadius: "8px",
+            fontSize: "11px",
+            fontFamily: "monospace",
+            textAlign: "left",
+            direction: "ltr",
           }}
         >
-          فتح التطبيق
-        </a>
-        <a
-          href={ANDROID_PLAY_STORE_URL}
+          <div>
+            <strong>🔗 Deep Link:</strong>
+          </div>
+          <div style={{ wordBreak: "break-all", marginTop: "6px", color: "#667eea" }}>
+            voucherapp://company/{companyId || "unknown"}
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <strong>📋 Company ID:</strong> {companyId || "Not found"}
+          </div>
+          <div style={{ marginTop: "6px" }}>
+            <strong>📍 Current URL:</strong> {window.location.href}
+          </div>
+        </div>
+
+        <p style={{ marginTop: "24px", fontSize: "14px", color: "#666" }}>
+          إذا لم يتم فتح التطبيق خلال ثوانٍ، سيتم تحويلك تلقائيًا إلى المتجر لتنزيله.
+        </p>
+
+        <p style={{ marginTop: "16px", fontSize: "14px", fontWeight: "bold" }}>
+          أو يمكنك الاختيار يدويًا:
+        </p>
+
+        <div
           style={{
-            padding: "8px 16px",
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            textDecoration: "none",
+            marginTop: "1rem",
+            display: "flex",
+            gap: "0.8rem",
+            justifyContent: "center",
+            flexWrap: "wrap",
           }}
         >
-          Google Play
-        </a>
-        <a
-          href={IOS_APP_STORE_URL}
-          style={{
-            padding: "8px 16px",
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            textDecoration: "none",
-          }}
-        >
-          App Store
-        </a>
+          <a
+            href={`voucherapp://company/${encodeURIComponent(companyId || "")}`}
+            style={{
+              padding: "10px 20px",
+              background: "#667eea",
+              color: "white",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontWeight: "bold",
+              fontSize: "14px",
+            }}
+          >
+            📱 فتح التطبيق
+          </a>
+          <a
+            href={ANDROID_PLAY_STORE_URL}
+            style={{
+              padding: "10px 20px",
+              background: "#34A853",
+              color: "white",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontSize: "14px",
+            }}
+          >
+            🤖 Google Play
+          </a>
+          <a
+            href={IOS_APP_STORE_URL}
+            style={{
+              padding: "10px 20px",
+              background: "#000",
+              color: "white",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontSize: "14px",
+            }}
+          >
+            🍎 App Store
+          </a>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
