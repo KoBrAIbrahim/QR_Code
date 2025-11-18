@@ -36,7 +36,7 @@ function PromoRedirectPage() {
       } else {
         window.location.href = "https://savi.vouchers";
       }
-    }, 2000);
+    }, 10000);
 
     return () => clearTimeout(timeout);
   }, [promoCode]);

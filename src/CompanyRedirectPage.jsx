@@ -24,7 +24,7 @@ function CompanyRedirectPage() {
     const appDeepLink = `${DEEP_LINK_SCHEME}://company/${encodeURIComponent(companyId || '')}`;
     window.location.href = appDeepLink;
 
-    // After 2 seconds, redirect to store if app not installed
+    // After 10 seconds, redirect to store if app not installed
     const timeout = setTimeout(() => {
       if (isAndroid) {
         window.location.href = ANDROID_PLAY_STORE_URL;
@@ -33,7 +33,7 @@ function CompanyRedirectPage() {
       } else {
         window.location.href = "https://savi.vouchers";
       }
-    }, 2000);
+    }, 10000);
 
     return () => clearTimeout(timeout);
   }, [companyId]);
