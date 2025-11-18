@@ -10,12 +10,12 @@ const ANDROID_PLAY_STORE_URL =
 // إعدادات الـ Deep Link للشركات
 const DEEP_LINK_SCHEME = "voucherapp";
 const DEEP_LINK_HOST = "app.voucherapp.com";
-const COMPANY_PATH = "/company";
 
 // ببني رابط الـ deep link مع معرف الشركة
 function buildDeepLink(companyId) {
   if (!companyId) return `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}`;
-  return `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}${COMPANY_PATH}/${companyId}`;
+  // نبعت الـ companyId في الـ path مع query parameter للتأكيد
+  return `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}/company/${encodeURIComponent(companyId)}`;
 }
 
 function CompanyRedirectPage() {
