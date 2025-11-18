@@ -7,19 +7,12 @@ const IOS_APP_STORE_URL =
 const ANDROID_PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.savi.vouchers";
 
-// إعدادات الـ Deep Link للشركات
+// إعدادات الـ Deep Link
 const DEEP_LINK_SCHEME = "voucherapp";
-const DEEP_LINK_HOST = "app.voucherapp.com";
+const DEEP_LINK_HOST = "qr-code-seven-rose.vercel.app"; // 🔥 CHANGED
 
-// ببني رابط الـ deep link مع معرف الشركة
-function buildDeepLink(companyId) {
-  if (!companyId) return `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}`;
-  // نبعت الـ companyId في الـ path مع query parameter للتأكيد
-  return `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}/company/${encodeURIComponent(companyId)}`;
-}
 
 function CompanyRedirectPage() {
-  // نقرأ معرف الشركة من الـ URL
   const { companyId } = useParams();
 
   useEffect(() => {
@@ -27,19 +20,17 @@ function CompanyRedirectPage() {
     const isAndroid = /android/i.test(ua);
     const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
 
-    const deepLink = buildDeepLink(companyId);
+    // First try app deep link
+    const appDeepLink = `${DEEP_LINK_SCHEME}://company/${encodeURIComponent(companyId || '')}`;
+    window.location.href = appDeepLink;
 
-    // 1) نحاول نفتح التطبيق أولاً
-    window.location.href = deepLink;
-
-    // 2) بعد ثانيتين، لو التطبيق مش منصّب، نحول على المتجر المناسب
+    // After 2 seconds, redirect to store if app not installed
     const timeout = setTimeout(() => {
       if (isAndroid) {
         window.location.href = ANDROID_PLAY_STORE_URL;
       } else if (isIOS) {
         window.location.href = IOS_APP_STORE_URL;
       } else {
-        // لو من لابتوب أو جهاز غريب، ودّيه لأي صفحة ويب
         window.location.href = "https://savi.vouchers";
       }
     }, 2000);
@@ -71,7 +62,7 @@ function CompanyRedirectPage() {
         }}
       >
         <a
-          href={buildDeepLink(companyId)}
+          href={`${DEEP_LINK_SCHEME}://company/${encodeURIComponent(companyId || '')}`}
           style={{
             padding: "8px 16px",
             border: "1px solid #ccc",

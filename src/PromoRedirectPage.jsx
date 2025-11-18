@@ -6,21 +6,15 @@ const IOS_APP_STORE_URL =
 const ANDROID_PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.savi.vouchers";
 
-// إعدادات الـ Deep Link
+// ✅ USE YOUR VERCEL DOMAIN
 const DEEP_LINK_SCHEME = "voucherapp";
-const DEEP_LINK_HOST = "app.voucherapp.com";
-const PROMO_PATH = "/promo";
 
-// ببني رابط الـ deep link مع كود البرومو لو موجود
 function buildDeepLink(promoCode) {
-  const base = `${DEEP_LINK_SCHEME}://${DEEP_LINK_HOST}${PROMO_PATH}`;
-  if (!promoCode) return base;
-  const encoded = encodeURIComponent(promoCode);
-  return `${base}?code=${encoded}`;
+  if (!promoCode) return `${DEEP_LINK_SCHEME}://promo`;
+  return `${DEEP_LINK_SCHEME}://promo/${encodeURIComponent(promoCode)}`;
 }
 
 function PromoRedirectPage() {
-  // نقرأ ?code=ABC123 من الرابط
   const promoCode = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get("code");
@@ -32,18 +26,14 @@ function PromoRedirectPage() {
     const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
 
     const deepLink = buildDeepLink(promoCode);
-
-    // 1) نحاول نفتح التطبيق أولاً
     window.location.href = deepLink;
 
-    // 2) بعد ثانيتين، لو التطبيق مش منصّب، نحول على المتجر المناسب
     const timeout = setTimeout(() => {
       if (isAndroid) {
         window.location.href = ANDROID_PLAY_STORE_URL;
       } else if (isIOS) {
         window.location.href = IOS_APP_STORE_URL;
       } else {
-        // لو من لابتوب أو جهاز غريب، ودّيه لأي صفحة ويب (اختياري)
         window.location.href = "https://savi.vouchers";
       }
     }, 2000);
