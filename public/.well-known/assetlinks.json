@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.savi.vouchers",
+      "sha256_cert_fingerprints": [
+        "2B:1F:8A:4A:F0:0A:DA:7B:73:35:EC:FC:4B:30:4E:38:B9:B3:5F:DB:95:68:11:B9:B7:18:3A:AE:64:C7:9E:54",
+        "17:23:43:C1:D2:BF:27:7A:BE:AA:AE:BB:70:9A:1E:34:3B:01:CE:CD:B8:F1:56:8E:FC:03:43:77:6F:36:DF:1B"
+      ]
+    }
+  }
+]
