@@ -84,33 +84,7 @@ function CompanyRedirectPage() {
           جاري فتح التطبيق...
         </p>
 
-        {/* Debug info */}
-        <div
-          style={{
-            background: "#fafafa",
-            padding: "12px",
-            marginTop: "20px",
-            borderRadius: "8px",
-            fontSize: "12px",
-            fontFamily: "monospace",
-            textAlign: "left",
-            direction: "ltr",
-            color: "var(--text)",
-          }}
-        >
-          <div>
-            <strong>🔗 Deep Link:</strong>
-          </div>
-            <div style={{ wordBreak: "break-all", marginTop: "6px", color: "var(--brand)" }}>
-            voucherapp://company/{companyId || "unknown"}
-          </div>
-          <div style={{ marginTop: "10px" }}>
-            <strong>📋 Company ID:</strong> {companyId || "Not found"}
-          </div>
-          <div style={{ marginTop: "6px" }}>
-            <strong>📍 Current URL:</strong> {window.location.href}
-          </div>
-        </div>
+        {/* Debug info removed per request */}
 
         <p style={{ marginTop: "24px", fontSize: "14px", color: "#666" }}>
           إذا لم يتم فتح التطبيق خلال ثوانٍ، سيتم تحويلك تلقائيًا إلى المتجر لتنزيله.
