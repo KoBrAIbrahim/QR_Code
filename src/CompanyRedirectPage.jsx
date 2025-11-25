@@ -50,31 +50,32 @@ function CompanyRedirectPage() {
         fontFamily: "system-ui",
         padding: "0 16px",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "var(--bg)",
       }}
     >
       <div
         style={{
-          background: "white",
-          borderRadius: "20px",
+          background: "#fff",
+          borderRadius: "16px",
           padding: "2rem",
-          maxWidth: "500px",
+          maxWidth: "560px",
           margin: "0 auto",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+          borderTop: "6px solid var(--brand)",
         }}
       >
-        <h1 style={{ color: "#667eea", marginBottom: "1rem" }}>
+        <img src="/app_icon.png" alt="Savi" style={{height:80, display:'block', margin:'0 auto 12px'}} />
+        <h1 style={{ color: "var(--brand)", marginBottom: "0.6rem" }}>
           🎫 Savi Vouchers
         </h1>
         
         <div
           style={{
-            border: "4px solid #f3f3f3",
-            borderTop: "4px solid #667eea",
+            border: "4px solid #f6f6f6",
             borderRadius: "50%",
             width: "50px",
             height: "50px",
-            margin: "20px auto",
+            margin: "18px auto",
             animation: "spin 1s linear infinite",
           }}
         />
@@ -86,20 +87,21 @@ function CompanyRedirectPage() {
         {/* Debug info */}
         <div
           style={{
-            background: "#f0f0f0",
+            background: "#fafafa",
             padding: "12px",
             marginTop: "20px",
             borderRadius: "8px",
-            fontSize: "11px",
+            fontSize: "12px",
             fontFamily: "monospace",
             textAlign: "left",
             direction: "ltr",
+            color: "var(--text)",
           }}
         >
           <div>
             <strong>🔗 Deep Link:</strong>
           </div>
-          <div style={{ wordBreak: "break-all", marginTop: "6px", color: "#667eea" }}>
+            <div style={{ wordBreak: "break-all", marginTop: "6px", color: "var(--brand)" }}>
             voucherapp://company/{companyId || "unknown"}
           </div>
           <div style={{ marginTop: "10px" }}>
@@ -131,7 +133,7 @@ function CompanyRedirectPage() {
             href={`voucherapp://company/${encodeURIComponent(companyId || "")}`}
             style={{
               padding: "10px 20px",
-              background: "#667eea",
+              background: "var(--brand)",
               color: "white",
               borderRadius: "8px",
               textDecoration: "none",
@@ -145,11 +147,13 @@ function CompanyRedirectPage() {
             href={ANDROID_PLAY_STORE_URL}
             style={{
               padding: "10px 20px",
-              background: "#34A853",
-              color: "white",
+              background: "#ffffff",
+              color: "var(--brand)",
+              border: "1px solid var(--brand)",
               borderRadius: "8px",
               textDecoration: "none",
               fontSize: "14px",
+              fontWeight: "600",
             }}
           >
             🤖 Google Play
@@ -158,11 +162,13 @@ function CompanyRedirectPage() {
             href={IOS_APP_STORE_URL}
             style={{
               padding: "10px 20px",
-              background: "#000",
-              color: "white",
+              background: "#ffffff",
+              color: "var(--brand)",
+              border: "1px solid var(--brand)",
               borderRadius: "8px",
               textDecoration: "none",
               fontSize: "14px",
+              fontWeight: "600",
             }}
           >
             🍎 App Store

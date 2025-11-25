@@ -49,8 +49,10 @@ function PromoRedirectPage() {
         marginTop: "4rem",
         fontFamily: "system-ui",
         padding: "0 16px",
+        background: "var(--bg)",
       }}
     >
+      <img src="/app_icon.png" alt="Savi" style={{height:80, display:'block', margin:'0 auto 12px'}} />
       <h1>جاري فتح تطبيق Savi Vouchers...</h1>
       <p>إذا لم يتم فتح التطبيق خلال ثوانٍ، سيتم تحويلك تلقائيًا إلى المتجر لتنزيله.</p>
       <p>أو يمكنك الاختيار يدويًا من الأزرار بالأسفل:</p>
@@ -68,9 +70,11 @@ function PromoRedirectPage() {
           href={buildDeepLink(promoCode)}
           style={{
             padding: "8px 16px",
-            border: "1px solid #ccc",
             borderRadius: 8,
             textDecoration: "none",
+            background: "var(--brand)",
+            color: "white",
+            fontWeight: 700,
           }}
         >
           فتح التطبيق
@@ -79,9 +83,12 @@ function PromoRedirectPage() {
           href={ANDROID_PLAY_STORE_URL}
           style={{
             padding: "8px 16px",
-            border: "1px solid #ccc",
             borderRadius: 8,
             textDecoration: "none",
+            background: "#ffffff",
+            color: "var(--brand)",
+            border: "1px solid var(--brand)",
+            fontWeight: 700,
           }}
         >
           Google Play
@@ -90,9 +97,12 @@ function PromoRedirectPage() {
           href={IOS_APP_STORE_URL}
           style={{
             padding: "8px 16px",
-            border: "1px solid #ccc",
             borderRadius: 8,
             textDecoration: "none",
+            background: "#ffffff",
+            color: "var(--brand)",
+            border: "1px solid var(--brand)",
+            fontWeight: 700,
           }}
         >
           App Store
