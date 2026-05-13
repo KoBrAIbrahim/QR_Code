@@ -17,7 +17,7 @@ function HomePage() {
       <p>روابط التحويل:</p>
       <ul style={{ listStyle: "none", padding: 0 }}>
         <li><code>/promo?code=ABC123</code> - للبروموكود</li>
-        <li><code>/company/CompanyId123</code> - لصفحة الشركة</li>
+        <li><code>/company/CompanyName</code> - لصفحة الشركة</li>
       </ul>
     </div>
   );
@@ -30,8 +30,8 @@ function App() {
         {/* صفحة التحويل مع البروموكود */}
         <Route path="/promo" element={<PromoRedirectPage />} />
 
-        {/* صفحة التحويل لمعرف الشركة */}
-        <Route path="/company/:companyId" element={<CompanyRedirectPage />} />
+        {/* صفحة التحويل لاسم الشركة */}
+        <Route path="/company/:companyName" element={<CompanyRedirectPage />} />
 
         {/* صفحة رئيسية بسيطة (اختيارية) */}
         <Route path="/" element={<HomePage />} />
