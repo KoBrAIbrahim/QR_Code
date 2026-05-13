@@ -587,14 +587,6 @@ export default function CompanyRedirectPage() {
                     <h1>جاري فتح التطبيق</h1>
                     <p className="subtitle">سيتم تحويلك إلى Savi تلقائياً</p>
 
-                    {companyName && (
-                        <div className="company-tag">
-                            <div className="company-dot" />
-                            <div className="company-sep" />
-                            <span className="company-label">اسم الشركة</span>
-                            <span className="company-value">{decodeURIComponent(companyName)}</span>
-                        </div>
-                    )}
 
                     <div className="feature-pills">
                         <div className="pill"><div className="pill-dot" />قسائم حصرية</div>
